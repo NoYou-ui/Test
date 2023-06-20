@@ -1,0 +1,45 @@
+/* 1 Вивести значення наступних колонок: номер, код, новинка, назва, ціна, сторінки*/
+SELECT number,cod,new,title,price,pages FROM  shop;
+/*2. Вивести значення всіх колонок*/
+SELECT * FROM shop;
+/*3. Вивести значення колонок в наступному порядку: код, назва, новинка, сторінки, ціна, номер*/
+SELECT cod,title,new,pages,price,number FROM shop;
+/*4. Вивести значення всіх колонок 10 перших рядків*/
+SELECT * FROM  shop LIMIT 10;
+/*5. Вивести значення всіх колонок 10% перших рядків*/
+??
+/*6. Вивести значення колонки код без повторення однакових кодів*/
+SELECT *   FROM shop GROUP BY cod;
+/*7. Вивести всі книги новинки*/
+SELECT * FROM shop WHERE new = 'YES';
+/*8. Вивести всі книги новинки з ціною від 20 до 30*/
+SELECT * FROM shop WHERE (new = 'YES') AND  (20<=price<=30);
+/*9. Вивести всі книги новинки з ціною менше 20 і більше 30*/
+SELECT * FROM shop WHERE (new = 'YES') AND (20>price>30);
+/*10. Вивести всі книги з кількістю сторінок від 300 до 400 і з ціною більше 20 і менше 30*/
+SELECT * FROM shop WHERE (300< pages < 400) AND (price >20 AND price<30);
+/*11. Вивести всі книги видані взимку 2000 року*/
+SELECT * FROM shop  WHERE date BETWEEN '2000-01-01' AND '2000-02-27';
+/*12. Вивести книги зі значеннями кодів 5110, 5141, 4985, 4241*/
+SELECT * FROM shop WHERE cod = 5110 OR cod = 5141 OR cod = 4985 OR cipher = 4241;
+/* 13. Вивести книги видані в 1999, 2001, 2003, 2005 */
+SELECT * FROM  shop  WHERE 
+YEAR(date) = 1999
+OR    YEAR(date) = 2001
+OR    YEAR(date) = 2003
+OR    YEAR(date) = 2005;
+/*14. Вивести книги назви яких починаються на літери А-К*/
+SELECT * FROM shop WHERE  title LIKE 'А%' OR title LIKE 'К%' ;
+/*15. Вивести книги назви яких починаються на літери "АПП", видані в 2000 році з ціною до 20*/
+SELECT * FROM shop WHERE title LIKE ' АПП %' AND YEAR(date) = 2000 AND price < 20;
+/*16. Вивести книги назви яких починаються на літери "АПП", закінчуються на "е", видані в першій половині 2000 року*/
+SELECT * FROM shop WHERE title LIKE 'АПП%е 'AND date BETWEEN '2000-01-01' AND '2000-05-01';
+
+/*17. Вивести книги, в назвах яких є слово Microsoft, але немає слова Windows*/
+SELECT * FROM  shop WHERE title LIKE '%Microsoft%' AND title  NOT LIKE '%Windows%' ;
+/*18. Вивести книги, в назвах яких присутня як мінімум одна цифра.*/
+SELECT * FROM shop WHERE  title REGEXP '[0-9]';
+/*19. Вивести книги, в назвах яких присутні не менше трьох цифр.*/
+SELECT * FROM shop  WHERE  title REGEXP  '([0-9].*){3}';
+/* 20. Вивести книги, в назвах яких присутній рівно п'ять цифр.*/
+SELECT * FROM shop  WHERE  title REGEXP  '([0-9].*){5}' AND title  NOT REGEXP '([0-9].*){6}';
